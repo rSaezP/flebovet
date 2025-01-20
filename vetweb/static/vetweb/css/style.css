@@ -1,0 +1,334 @@
+:root {
+    --flebo-blue: #1244C5;  /* Color más brillante y saturado */
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Top Bar */
+.top-bar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    padding: 5px 0;
+}
+
+.biocant-link {
+    color: #666;
+    font-size: 12px;
+}
+
+.biocant-link a {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+
+/* Navbar y Logo */
+
+
+.nav-link:hover {
+    color: var(--primary-blue) !important;
+    opacity: 1;
+}
+
+
+.logo {
+    height: auto;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+.nav-link, .nav-icon, .navbar-brand {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+
+
+
+
+
+.navbar.scrolled {
+    background: transparent !important;
+ 
+    box-shadow: none !important;
+}
+
+.navbar:hover {
+    background: rgba(255, 255, 255, 0.98);
+}
+
+
+.navbar .nav-link {
+    color: var(--flebo-blue) !important;  
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px !important;
+    transition: none;
+}
+
+
+.navbar.scrolled .nav-link,
+.navbar.scrolled .nav-icon,
+.navbar.scrolled .navbar-brand {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+
+
+.navbar:hover .nav-link {
+    color: white !important;
+}
+
+.navbar .nav-link:hover {
+    color: var(--flebo-blue) !important;  /* Color del logo */
+    opacity: 1;
+}
+
+.nav-link:hover, 
+.nav-icon:hover i {
+    color: var(--flebo-blue) !important;
+    transform: none;
+    opacity: 1;
+}
+
+/* Hero Slider */
+
+
+.carousel, 
+.carousel-inner, 
+.carousel-item {
+    height: 100%;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    text-align: left;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.caption-content {
+    max-width: 600px;
+    padding-left: 15px;
+}
+
+.caption-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.caption-content p {
+    font-size: 24px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+/* Modificar el estilo del botón primario para que coincida con el outline-light */
+.carousel-caption .btn-primary {
+    border: 2px solid white !important;
+    color: white !important;
+    background: transparent !important;
+    padding: 10px 25px !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    font-size: 14px !important;
+    letter-spacing: 1px !important;
+}
+
+.carousel-caption .btn-primary:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+
+/* Footer */
+
+footer {
+    width: 100%;
+    background-color:none ; /* Color del fondo */
+    color: #333; /* Color del texto */
+    text-align: center; /* Texto centrado */
+    padding: 0; /* Relleno interno */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra superior */
+    position: relative;
+    bottom: 0;
+    margin-top: auto; /* Empuja el footer al final */
+}
+
+.footer-modern {
+    background: linear-gradient(180deg, #f0f7ff 0%, #d9eafc 100%);
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    padding-bottom: 0; /* Eliminar espacio adicional abajo */
+}
+
+.footer-modern h5 {
+    color: #333;
+}
+
+
+.footer-modern p,
+.footer-modern a {
+    color: #666;  /* Color de texto más sutil */
+}
+
+.footer-bottom {
+    
+    background: none; /* Eliminar fondo azul */
+    padding: 0; /* Eliminar espacio interior */
+    margin-top: 10px; /* Separación mínima del contenido anterior */
+    font-size: 14px; /* Tamaño de texto ajustado */
+    text-align: center;
+}
+
+.footer-links {
+    margin-top: 10px; /* Agrega espacio superior */
+    display: block;
+}
+
+.footer-links a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 5px 0;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--secondary);
+    padding-left: 10px;
+}
+
+.footer-contact {
+    list-style: none;
+    padding: 1;
+    margin: 1;
+}
+
+
+.footer-contact li {
+    margin-bottom: 15px;
+}
+
+.footer-contact i {
+    margin-right: 10px;
+    color: var(--secondary);
+}
+
+.footer-bottom p {
+    margin: 0; /* Eliminar márgenes adicionales */
+}
+.footer .sections {
+    display: flex; /* Alinear secciones horizontalmente */
+    justify-content: space-between; /* Espaciar las secciones */
+    padding: 20px; /* Espacio interno solo para contenido */
+    margin-bottom: 0;
+}
+
+/* Sección del copyright */
+.footer-copyright {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    padding: 20px 0; /* Ajusta el espacio vertical */
+    height: 60px; /* Da una altura fija al área */
+    background-color: #f8f9fa; /* Fondo claro para visibilidad */
+    font-size: 14px; /* Tamaño del texto */
+    color: #555; /* Color del texto */
+    margin: 0; /* Elimina márgenes adicionales */
+    box-sizing: border-box; /* Incluye padding en el cálculo de la altura */
+}
+
+/* Quitar márgenes adicionales de párrafos */
+.footer .copyright p {
+    margin: 0;
+}
+
+
+/* WhatsApp Float */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25D366;
+    color: var(--white);
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    color: var(--white);
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .caption-content h1 {
+        font-size: 36px;
+    }
+    
+    .caption-content p {
+        font-size: 18px;
+    }
+    
+    .navbar-nav {
+        padding: 20px 0;
+    }
+    
+    .nav-link {
+        padding: 10px 0 !important;
+    }
+    
+    .hero-slider {
+        height: 60vh !important;
+    }
+}
+
+/* Top bar para Biocant */
+.top-bar {
+    background-color: var(--flebo-blue);
+    padding: 5px 0;
+}
+
+.biocant-link {
+    color: var(--flebo-blue) !important;
+    font-size: 12px;
+}
+
+.biocant-link a {
+    color: var(--flebo-light);
+    text-decoration: none;
+}
+
