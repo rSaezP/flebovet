@@ -26,6 +26,12 @@
                 <img src="{% static 'vetweb/img/test.jpg' %}" alt="{{ producto.nombre }}">
             {% elif producto.id == 5 %}
                 <img src="{% static 'vetweb/img/v3.jpg' %}" alt="{{ producto.nombre }}">
+            {% else %}
+                {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                {% else %}
+                    <img src="{% static 'vetweb/img/default-product.png' %}" alt="Imagen predeterminada">
+                {% endif %}
             {% endif %}
         </div>
 
@@ -44,23 +50,26 @@
                 </div>
                 {% endif %}
             </div>
+
+            <div style="display:none">
+                ID: {{ producto.id }}
+                Es estático: {{ producto.es_estatico }}
+                URL contacto: {% url 'vetweb:contacto' %}
+            </div>
             
             <!-- Botones -->
-           <!-- Botones -->
-           <div class="action-buttons">
-            <a href="{% url 'vetweb:contacto' %}" class="btn-primary">
-                SOLICITAR INFORMACIÓN
-            </a>
-        
-            {% if producto.pdf %}
-                <p>DEBUG - URL del PDF: {{ producto.pdf.url }}</p>
-                
-                <!-- Cambia a un enlace directo al archivo -->
-                <a href="{{ producto.pdf.url }}" class="btn-pdf" target="_blank" aria-label="Descargar Ficha Técnica del producto {{ producto.nombre }}">
-                    <i class="fas fa-file-pdf"></i> Descargar Ficha Técnica
-                </a>
-            {% endif %}
-        </div>
+            <div class="action-buttons">             
+                <a href="{% url 'vetweb:contacto' %}" class="btn-primary">                 
+                    SOLICITAR INFORMACIÓN             
+                </a>   
+                {% if producto.pdf %}                  
+                <a href="{% url 'vetweb:download_pdf' producto.id %}" class="btn-pdf" download> <!-- Agregado download y cambiado href -->
+                    <i class="fas fa-file-pdf"></i> Descargar Ficha Técnica                 
+                </a>             
+            {% endif %}              
+                    
+            </div>     
+           
                
                 
              

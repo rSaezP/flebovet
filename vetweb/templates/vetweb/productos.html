@@ -4,7 +4,6 @@
 {% block title %}Equipos y Productos - Laboratorio Veterinario{% endblock %}
 
 {% block content %}
-
 <!-- Hero Section -->
 <div class="hero-slider product-page">
     <div class="carousel-inner">
@@ -24,7 +23,7 @@
 
 <div class="container py-5">
     <div class="row g-4 justify-content-center">
-        <!-- HV-COA 7100 -->
+        <!-- Productos Estáticos Mejorados -->
         <div class="col-md-4 mb-4">
             <div class="form-product">
                 <div class="product-img-container">
@@ -43,12 +42,16 @@
                             <span>Resultados en minutos</span>
                         </div>
                     </div>
-                    <a href="{% url 'vetweb:detalle_producto' producto_id=1 %}" class="btn-ver">Ver Detalles</a>
+                    <div class="actions-container">
+                        <button class="btn-wishlist" disabled>
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <a href="{% url 'vetweb:detalle_producto' 1 %}" class="btn-ver">Ver Detalles</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- HV-FIA 3000 -->
         <div class="col-md-4 mb-4">
             <div class="form-product">
                 <div class="product-img-container">
@@ -71,12 +74,16 @@
                             <span>Almacena 1000 resultados</span>
                         </div>
                     </div>
-                    <a href="{% url 'vetweb:detalle_producto' producto_id=2 %}" class="btn-ver">Ver Detalles</a>
+                    <div class="actions-container">
+                        <button class="btn-wishlist" disabled>
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <a href="{% url 'vetweb:detalle_producto' 2 %}" class="btn-ver">Ver Detalles</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- PCR Pointcare V1 -->
         <div class="col-md-4 mb-4">
             <div class="form-product">
                 <div class="product-img-container">
@@ -99,12 +106,16 @@
                             <span>6 wells de procesamiento</span>
                         </div>
                     </div>
-                    <a href="{% url 'vetweb:detalle_producto' producto_id=3 %}" class="btn-ver">Ver Detalles</a>
+                    <div class="actions-container">
+                        <button class="btn-wishlist" disabled>
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <a href="{% url 'vetweb:detalle_producto' 3 %}" class="btn-ver">Ver Detalles</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Test Rápidos Veterinarios -->
         <div class="col-md-4 mb-4">
             <div class="form-product">
                 <div class="product-img-container">
@@ -127,12 +138,16 @@
                             <span>Alta sensibilidad y especificidad</span>
                         </div>
                     </div>
-                    <a href="{% url 'vetweb:detalle_producto' producto_id=4 %}" class="btn-ver">Ver Detalles</a>
+                    <div class="actions-container">
+                        <button class="btn-wishlist" disabled>
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <a href="{% url 'vetweb:detalle_producto' 4 %}" class="btn-ver">Ver Detalles</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Pointcare V3 -->
         <div class="col-md-4 mb-4">
             <div class="form-product">
                 <div class="product-img-container">
@@ -155,12 +170,60 @@
                             <span>Pantalla táctil 4.3"</span>
                         </div>
                     </div>
-                    <a href="{% url 'vetweb:detalle_producto' producto_id=5 %}" class="btn-ver">Ver Detalles</a>
+                    <div class="actions-container">
+                        <button class="btn-wishlist" disabled>
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <a href="{% url 'vetweb:detalle_producto' 5 %}" class="btn-ver">Ver Detalles</a>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Productos Dinámicos Integrados -->
+        {% for producto in productos_dinamicos %}
+        <div class="col-md-4 mb-4">
+            <div class="form-product">
+                <div class="product-img-container">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="product-img">
+                    {% else %}
+                        <img src="{% static 'vetweb/img/default-product.png' %}" alt="Imagen predeterminada" class="product-img">
+                    {% endif %}
+                </div>
+                <div class="product-content">
+                    <h2>{{ producto.nombre }}</h2>
+                    <p>{{ producto.descripcion }}</p>
+                    <div class="features">
+                        <div class="feature-item">
+                            <span class="check">✓</span>
+                            <span>Stock: {{ producto.stock }}</span>
+                        </div>
+                        {% if producto.pdf %}
+                        <div class="feature-item">
+                            <span class="check">✓</span>
+                            <span>Manual disponible</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="actions-container">
+                        {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'vetweb:agregar_a_deseos' producto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-wishlist">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                        <a href="{% url 'vetweb:detalle_producto' producto.id %}" class="btn-ver">Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
+
 
 <style>
 /* Contenedor del producto */
@@ -243,9 +306,42 @@
     margin-right: 10px;
 }
 
-/* Botón */
+/* Contenedor de acciones */
+.actions-container {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+/* Botón wishlist */
+.btn-wishlist {
+    background: transparent;
+    border: 1px solid rgba(17, 127, 239, 0.3);
+    color: rgba(17, 127, 239, 0.8);
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-wishlist:hover {
+    background: rgba(17, 127, 239, 0.1);
+    border-color: rgba(17, 127, 239, 0.5);
+    color: rgba(17, 127, 239, 1);
+}
+
+.btn-wishlist i {
+    font-size: 18px;
+}
+
+/* Botón ver detalles */
 .btn-ver {
-    width: 100%;
+    flex: 1;
     padding: 12px;
     background: transparent;
     border: 1px solid rgba(17, 127, 239, 0.3);
@@ -255,7 +351,6 @@
     text-decoration: none;
     border-radius: 6px;
     transition: all 0.3s ease;
-    margin-top: auto;
 }
 
 .btn-ver:hover {
@@ -277,6 +372,21 @@
 
 .hero-slider.product-page .carousel-caption {
     background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-product {
+        padding: 20px;
+    }
+    
+    .product-img-container {
+        height: 180px;
+    }
+    
+    .form-product h2 {
+        font-size: 20px;
+    }
 }
 </style>
 {% endblock %}
