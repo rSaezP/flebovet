@@ -1,39 +1,57 @@
-{% extends 'vetweb/base.html' %} 
-{% load static %}  
+{% extends 'vetweb/base.html' %}
+{% load static %}
 
-{% block content %} 
-<!-- Hero Section --> 
-<div class="hero-slider contact-page">     
-    <div class="carousel-inner">         
-        <div class="carousel-item active">             
-            <img src="{% static 'vetweb/img/contacto.jpg' %}" class="d-block w-100" alt="FleboVet">             
-            <div class="carousel-caption">                 
-                <div class="container">                     
-                    <div class="caption-content text-start">                         
-                        <h1>Contáctanos</h1>                         
-                        <p>Estamos aquí para atender tus consultas</p>                     
-                    </div>                 
-                </div>             
-            </div>         
-        </div>     
-    </div> 
-</div>  
+{% block content %}
+<script>
+// Limpiar mensajes antiguos al cargar la página
+window.onload = function() {
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+}
+</script>
 
-<!-- Sección Formulario --> 
-<section class="contact-section py-5">     
-    <div class="container">         
-        <div class="row justify-content-center">             
-            <div class="col-md-8">                 
-                <div class="contact-form-box">                     
+<!-- Hero Section -->
+<div class="hero-slider contact-page">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'vetweb/img/225.jpg' %}" class="d-block w-100" alt="FleboVet">
+            <div class="carousel-caption">
+                <div class="container">
+                    <div class="caption-content text-start">
+                        <h1>CONTÁCTANOS</h1>
+                        <p>Estamos aquí para atender tus consultas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección Formulario -->
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="contact-form-box">
                     <h2 class="text-center mb-4">¿Necesitas más Información?</h2>
 
                     <!-- Mensajes de éxito/error -->
                     {% if messages %}
                         {% for message in messages %}
-                            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} mb-4">
+                            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show mb-4">
                                 {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         {% endfor %}
+                        <script>
+                            // Auto-dismiss alerts after 3 seconds
+                            setTimeout(function() {
+                                document.querySelectorAll('.alert').forEach(function(alert) {
+                                    bootstrap.Alert.getOrCreateInstance(alert).close();
+                                });
+                            }, 1000);
+                        </script>
                     {% endif %}
 
                     <form class="contact-form" method="post">
@@ -60,9 +78,90 @@
                             </button>
                         </div>
                     </form>
-                </div>             
-            </div>         
-        </div>     
-    </div> 
-</section> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Estilos específicos para la página de contacto */
+.hero-slider.contact-page {
+    position: relative;
+    margin-top: 89px !important;
+    height: 600px !important;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hero-slider.contact-page .carousel-inner {
+    height: 100%;
+}
+
+.hero-slider.contact-page .carousel-item {
+    height: 100%;
+}
+
+.hero-slider.contact-page img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+.hero-slider.contact-page .carousel-caption {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+    margin: 0;
+    border-radius: 0;
+}
+
+.hero-slider.contact-page .caption-content {
+    z-index: 3;
+    position: relative;
+    max-width: 800px;
+    text-align: left;
+}
+
+.hero-slider.contact-page h1 {
+    color: white !important;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-slider.contact-page p {
+    color: white !important;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Fix para mensajes */
+.alert {
+    margin-bottom: 1rem !important;
+}
+
+.alert-dismissible {
+    position: relative;
+}
+
+.btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1.25rem;
+}
+</style>
 {% endblock %}

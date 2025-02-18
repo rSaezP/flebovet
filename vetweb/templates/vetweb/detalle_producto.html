@@ -23,7 +23,7 @@
             {% elif producto.id == 3 %}
                 <img src="{% static 'vetweb/img/pcr.png' %}" alt="{{ producto.nombre }}">
             {% elif producto.id == 4 %}
-                <img src="{% static 'vetweb/img/test.jpg' %}" alt="{{ producto.nombre }}">
+                <img src="{% static 'vetweb/img/test_.jpg' %}" alt="{{ producto.nombre }}">
             {% elif producto.id == 5 %}
                 <img src="{% static 'vetweb/img/v3.jpg' %}" alt="{{ producto.nombre }}">
             {% else %}
@@ -41,7 +41,7 @@
         </div>
 
         <!-- Contenedor de acciones -->
-        <div class="actions-grid">
+        
             <!-- Stock -->
             <div class="stock-section">
                 {% if producto.stock > 0 %}
@@ -61,14 +61,15 @@
             <div class="action-buttons">             
                 <a href="{% url 'vetweb:contacto' %}" class="btn-primary">                 
                     SOLICITAR INFORMACIÓN             
-                </a>   
+                </a>                      
                 {% if producto.pdf %}                  
-                <a href="{% url 'vetweb:download_pdf' producto.id %}" class="btn-pdf" download> <!-- Agregado download y cambiado href -->
-                    <i class="fas fa-file-pdf"></i> Descargar Ficha Técnica                 
-                </a>             
-            {% endif %}              
+                    <a href="{% url 'vetweb:download_pdf' producto.id %}" class="btn-primary" target="_blank">
+                        <i class="fas fa-file-pdf"></i> Descargar Ficha Técnica                 
+                    </a>             
+                {% endif %}
+            </div>
                     
-            </div>     
+             
            
                
                 
@@ -81,6 +82,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('a.btn-primary[href*="download/pdf"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.open(this.href, '_blank');  // Abre y mantiene la pestaña
+      });
+    });
+  </script>
 
 <style>
 /* Variables globales */

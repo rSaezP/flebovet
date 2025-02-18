@@ -10,6 +10,7 @@ urlpatterns = [
     path('productos/', views.lista_productos, name='productos'),
     path('quienes-somos/', views.quienes_somos, name='quienes_somos'),
     path('contacto/', views.contacto, name='contacto'),
+    path('policies/', views.policies_view, name='policies'),
     
     # Autenticación y perfil
     path('auth/login/', views.login_view, name='login'),
@@ -30,6 +31,7 @@ urlpatterns = [
  
     # URLs de lista de deseos
     path('lista-deseos/', views.lista_deseos_view, name='lista_deseos_view'),
+    
     path('lista-deseos/agregar/<int:producto_id>/', views.agregar_a_deseos, name='agregar_a_deseos'),
     path('lista-deseos/quitar/<int:producto_id>/', views.quitar_de_deseos, name='quitar_de_deseos'),
     

@@ -2,11 +2,10 @@
 {% load static %}
 
 {% block content %}
-<!-- El mismo HTML que tenías, solo ajustaremos el CSS -->
 <div class="hero-slider register-page">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{% static 'vetweb/img/registro.jpg' %}" class="d-block w-100" alt="Registro">
+            <img src="{% static 'vetweb/img/21.jpg' %}" class="d-block w-100" alt="Registro">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -58,47 +57,52 @@
 </div>
 
 <style>
-/* Mantenemos todos tus estilos actuales y solo ajustamos lo necesario */
+/* Hero Section ajustado */
 .hero-slider.register-page {
-    height: 100vh;
-    margin-top: 0;
+    height: auto !important;
+    min-height: calc(100vh - 89px);
+    margin-top: 89px;
+    margin-bottom: 0 !important;
+    position: relative;
 }
 
 .hero-slider.register-page .carousel-item {
-    height: 100vh;
+    height: auto !important;
+    min-height: calc(100vh - 89px);
 }
 
 .hero-slider.register-page .carousel-caption {
     background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%);
-    height: 100%;
+    position: absolute;
     top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
     align-items: center;
-    padding-top: 70px; /* Añadido para dar espacio al menú superior */
+    padding: 40px 0;
 }
 
-/* Formulario */
+/* Formulario mejorado */
 .form-register {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 1.5rem;
-    border-radius: 10px;
-    max-height: calc(90vh - 70px); /* Ajustado para considerar el menú superior */
-    overflow-y: auto;
-    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(17, 127, 239, 0.1);
-    position: relative; /* Añadido */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-height: none;
+    width: 100%;
+    margin: 20px 0;
 }
 
 .form-register h2 {
     color: #333;
     font-size: 1.5rem;
-    margin: 10px 0;
+    margin-bottom: 10px;
     text-align: center;
-    padding-top: 10px; /* Añadido */
 }
 
-/* El resto de tus estilos quedan exactamente igual */
 .form-register p {
     color: #666;
     text-align: center;
@@ -132,6 +136,7 @@
     letter-spacing: 1px;
     transition: all 0.3s ease;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .contact-button:hover {
@@ -165,37 +170,20 @@
     display: block;
 }
 
-.mb-3 {
-    margin-bottom: 0.5rem !important;
-}
-
-/* Scrollbar styles */
-.form-register::-webkit-scrollbar {
-    width: 6px;
-}
-
-.form-register::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.form-register::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-}
-
-/* Media query para ajustar en pantallas más pequeñas */
-@media (max-height: 700px) {
-    .hero-slider.register-page .carousel-caption {
-        padding-top: 60px;
+/* Media queries */
+@media (max-width: 768px) {
+    .hero-slider.register-page {
+        margin-top: 0;
+        min-height: 100vh;
     }
-    
+
+    .hero-slider.register-page .carousel-item {
+        min-height: 100vh;
+    }
+
     .form-register {
-        padding: 1.2rem;
-    }
-    
-    .form-register h2 {
-        font-size: 1.3rem;
-        margin: 5px 0;
+        padding: 20px;
+        margin: 10px 0;
     }
 }
 </style>

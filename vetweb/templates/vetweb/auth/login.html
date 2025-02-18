@@ -5,7 +5,7 @@
 <div class="hero-slider login-page">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{% static 'vetweb/img/registro.jpg' %}" class="d-block w-100" alt="Login">
+            <img src="{% static 'vetweb/img/bioquimica.jpg' %}" class="d-block w-100" alt="Login">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -23,7 +23,7 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                            {% endif %}
+                                {% endif %}
 
                                 <form method="post">
                                     {% csrf_token %}
@@ -49,31 +49,42 @@
 </div>
 
 <style>
-/* Hero Section */
+/* Hero Section ajustado */
 .hero-slider.login-page {
-    height: 100vh;
-    margin-top: 0;
+    height: auto !important;
+    min-height: calc(100vh - 89px);
+    margin-top: 89px;
+    margin-bottom: 0 !important;
+    position: relative;
 }
 
 .hero-slider.login-page .carousel-item {
-    height: 100vh;
+    height: auto !important;
+    min-height: calc(100vh - 89px);
 }
 
 .hero-slider.login-page .carousel-caption {
     background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%);
-    height: 100%;
+    position: absolute;
     top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
     align-items: center;
+    padding: 40px 0;
 }
 
 /* Formulario */
 .form-login {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.95);
     padding: 35px;
-    border-radius: 10px;
+    border-radius: 15px;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 102, 225, 0.1);
+    border: 1px solid rgba(17, 127, 239, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 20px 0;
 }
 
 .form-login h2 {
@@ -90,15 +101,53 @@
     margin-bottom: 25px;
 }
 
-.register-link {
-    color: #0066E1;
-    text-decoration: none;
-    transition: all 0.3s ease;
+.form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(17, 127, 239, 0.3);
+    padding: 12px 15px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 14px;
 }
 
-.register-link:hover {
-    opacity: 0.8;
+.form-control:focus {
+    border-color: rgba(17, 127, 239, 0.5);
+    box-shadow: 0 0 0 2px rgba(17, 127, 239, 0.1);
+}
+
+.contact-button {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid rgba(17, 127, 239, 0.5);
+    color: rgba(17, 127, 239, 0.8);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.contact-button:hover {
+    background: rgba(17, 127, 239, 0.1);
+    border-color: rgba(17, 127, 239, 0.8);
+    color: rgba(17, 127, 239, 1);
+}
+
+.register-link, .forgot-password-link {
+    color: #117fef;
     text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.register-link:hover, .forgot-password-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
 
 /* Estilos para los mensajes */
@@ -125,31 +174,33 @@
     border: 1px solid rgba(40, 167, 69, 0.2);
 }
 
-.alert .btn-close {
-    padding: 0.75rem;
-    font-size: 12px;
-}
+/* Media queries */
+@media (max-width: 768px) {
+    .hero-slider.login-page {
+        margin-top: 0;
+        min-height: 100vh;
+    }
 
-/* Animación para los mensajes */
-.fade {
-    transition: opacity 0.15s linear;
-}
+    .hero-slider.login-page .carousel-item {
+        min-height: 100vh;
+    }
 
-.fade.show {
-    opacity: 1;
+    .form-login {
+        padding: 25px;
+        margin: 10px 0;
+    }
 }
 </style>
-{% endblock %}
 
 <script>
-    // Hacer que los mensajes desaparezcan después de 5 segundos
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            var alerts = document.querySelectorAll('.alert');
-            alerts.forEach(function(alert) {
-                var bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            });
-        }, 5000);
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            var bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        });
+    }, 5000);
+});
 </script>
+{% endblock %}

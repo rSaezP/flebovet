@@ -121,8 +121,10 @@ header {
 /* Estilos de Contacto */
 /* Estilos específicos para la página de contacto */
 .contact-hero {
-    height: 100vh !important;
+    height: 600px !important;
     position: relative;
+    margin-top: 89px !important;
+    overflow: hidden;
 }
 
 .contact-hero .overlay {
@@ -134,6 +136,13 @@ header {
     background: rgba(0, 0, 0, 0.7);
     z-index: 1;
 }
+.contact-hero img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
 
 .contact-form-container {
     position: absolute;
@@ -142,11 +151,21 @@ header {
     transform: translate(-50%, -50%);
     width: 100%;
     z-index: 2;
+    padding: 0 1rem;
 }
 
-.contact-form-container h1,
+.contact-form-container h1 {
+    color: white !important;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
 .contact-form-container h2 {
-    color: white;
+    color: white !important;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
 .contact-form {
@@ -344,25 +363,128 @@ header {
 /* Ajustes específicos para las páginas de contacto y quienes somos */
 .hero-slider.contact-page,
 .hero-slider.about-page {
-    height: 500px !important; /* Altura más corta para estas páginas */
+    position: relative;
+    margin-top: 89px !important;
+    height: 600px !important;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+
+    
 }
+
 
 .hero-slider.contact-page .carousel-caption,
 .hero-slider.about-page .carousel-caption {
-    background: linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%); /* Menos translúcido */
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    margin: 0;
+    border-radius: 0;
+
+}
+
+.hero-slider.about-page .carousel-inner {
+    height: 100%;
+}
+
+.hero-slider.about-page .carousel-item {
+    height: 100%;
+}
+.hero-slider.contact-page .carousel-caption {
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    margin: 0;
+    border-radius: 0;
+}
+
+.hero-slider.contact-page .caption-content {
+    z-index: 3;
+    position: relative;
+}
+
+.hero-slider.contact-page h1 {
+    color: white !important;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-slider.contact-page p {
+    color: white !important;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
 
 .hero-slider.contact-page img,
 .hero-slider.about-page img {
-    object-fit: cover;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
 }
+/* Nuevos estilos para el contenido de about page */
+.hero-slider.about-page .caption-content {
+    z-index: 3;
+    position: relative;
+}
+
+.hero-slider.about-page h1 {
+    color: white !important;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-slider.about-page p {
+    color: white !important;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Ajustes para las secciones de about */
+.about-intro,
+.mission-vision-section,
+.about-image-section {
+    position: relative;
+    z-index: 2;
+    background: white;
+}
+
+.about-intro {
+    padding-top: 4rem;
+    margin-top: 0;
+}
+
+
 
 .footer-modern {
     background: linear-gradient(180deg, #f0f7ff 0%, #d9eafc 100%);
     color: #333;
     font-family: 'Arial', sans-serif;
     padding: 20px 0;
+    margin-top:0 ;
+    position: relative;
+    z-index: 3;
+
 }
 
 .footer-waves {
@@ -515,6 +637,10 @@ nav a {
     max-width: 1140px; /* Valor predeterminado de Bootstrap */
     padding-left: 15px;
     padding-right: 15px;
+    
+}
+container.py-5 {
+    flex: 1;
 }
 .image-container { /* Aplica la clase correspondiente al contenedor */
     margin: 0; /* Elimina márgenes */
@@ -529,12 +655,13 @@ nav a {
 }
 
 .nav-icon {
-    position: relative;
+    background: rgba(17, 127, 239, 0.1);
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 10px;  /* Asegurar espacio mínimo */
-    min-height: 10px; /* Asegurar espacio mínimo */
    
 }
 
@@ -577,7 +704,7 @@ nav a {
 
 .nav-icon:hover i {
     color: var(--flebo-blue) !important;  /* Color más oscuro al hover */
-    
+    transform: scale(1.2);
     font-size: 38px !important;
 }
 
@@ -618,6 +745,7 @@ nav a {
 .nav-icon i {
     font-size: 60px !important;
     color: var(--flebo-blue);
+    transition: all 0.3s ease;
 }
 
 /* Enlaces de navegación */
@@ -627,139 +755,6 @@ nav a {
     font-weight: 500;
 }
 
-/* Estilos modernos para la sección de registro */
-.pre-footer-signup {
-    background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
-    padding: 80px 0;
-    margin-top: 60px;
-    position: relative;
-    overflow: hidden;
-}
 
-.pre-footer-signup::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(18, 68, 197, 0.05) 0%, rgba(18, 68, 197, 0) 70%);
-    border-radius: 50%;
-    transform: translate(30%, -30%);
-}
-
-.signup-wrapper {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    position: relative;
-    z-index: 1;
-}
-
-.signup-content h2 {
-    color: var(--flebo-blue);
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-.signup-description {
-    color: #666;
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-}
-
-.benefits-grid {
-    display: grid;
-    gap: 25px;
-    margin-top: 30px;
-}
-
-.benefit-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.benefit-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #f0f7ff 0%, #e1eeff 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.benefit-icon i {
-    color: var(--flebo-blue);
-    font-size: 24px;
-}
-
-.benefit-text h4 {
-    color: #333;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.benefit-text p {
-    color: #666;
-    font-size: 0.95rem;
-    margin: 0;
-}
-
-.register-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: var(--flebo-blue);
-    color: white;
-    padding: 18px 40px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 2px solid var(--flebo-blue);
-}
-
-.register-button:hover {
-    background: white;
-    color: var(--flebo-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(18, 68, 197, 0.15);
-}
-
-.register-button i {
-    transition: transform 0.3s ease;
-}
-
-.register-button:hover i {
-    transform: translateX(5px);
-}
-
-@media (max-width: 992px) {
-    .pre-footer-signup {
-        padding: 40px 0;
-    }
-
-    .signup-wrapper {
-        padding: 30px;
-    }
-
-    .signup-content h2 {
-        font-size: 2rem;
-    }
-
-    .signup-action {
-        margin-top: 30px;
-        text-align: center;
-    }
-}
 
 }

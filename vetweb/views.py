@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Producto
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -15,9 +15,18 @@ from .forms import CustomUserCreationForm
 from functools import wraps
 from .models import Producto, Carrito, CarritoItem, Orden, OrdenItem, UserProfile, ListaDeseos
 from .decorators import admin_required
-from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 import os
 from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from .models import Producto, ListaDeseos
+from django.shortcuts import render
+from .models import Producto
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 def index(request):
     static_root = settings.STATIC_ROOT
@@ -28,76 +37,91 @@ def index(request):
     print(f"CSS Path exists: {os.path.exists(css_path)}")
     print(f"Full CSS Path: {css_path}")
     return render(request, 'vetweb/index.html')
-from django.shortcuts import render
-from .models import Producto
+
 
 def lista_productos(request):
-    # Productos estáticos predefinidos (tus 5 originales)
-    productos_estaticos = [
-        {
-            'id': 1,
-            'nombre': 'HV-COA 7100',
-            'descripcion': 'Analizador de Coagulación Veterinaria',
-            'imagen': 'producto1.png',
-            'caracteristicas': [
-                'Rápido y Preciso',
-                'Resultados en minutos'
-            ]
-        },
-        {
-            'id': 2,
-            'nombre': 'HV-FIA 3000',
-            'descripcion': 'Analizador de Inmunofluorescencia Cuantitativo',
-            'imagen': 'producto2.jpg',
-            'caracteristicas': [
-                'T4, TSH, Cortisol, Hormonas',
-                'Resultados en 3-15 minutos',
-                'Almacena 1000 resultados'
-            ]
-        },
-        {
-            'id': 3,
-            'nombre': 'Pointcare® PCR V1',
-            'descripcion': 'Analizador PCR en tiempo real',
-            'imagen': 'producto3.png',
-            'caracteristicas': [
-                'Extracción libre de DNA/RNA',
-                'Resultados en 60 minutos',
-                '6 wells de procesamiento'
-            ]
-        },
-        {
-            'id': 4,
-            'nombre': 'Test Rápidos',
-            'descripcion': 'Diagnóstico Veterinario',
-            'imagen': 'producto4.png',
-            'caracteristicas': [
-                'CPV/CDV/FPV/FIV/otras pruebas',
-                'Resultados en 5-10 minutos',
-                'Alta sensibilidad y especificidad'
-            ]
-        },
-        {
-            'id': 5,
-            'nombre': 'Pointcare V3',
-            'descripcion': 'Analizador de Química Clínica y Electrolitos',
-            'imagen': 'producto5.jpeg',
-            'caracteristicas': [
-                'Perfil Hepático y Renal',
-                'Resultados en 7 minutos',
-                'Pantalla táctil 4.3"'
-            ]
-        }
-    ]
-    nombres_estaticos = ['HV-COA 7100', 'HV-FIA 3000', 'Pointcare® PCR V1', 'Test Rápidos', 'Pointcare V3']
-    productos_dinamicos = Producto.objects.exclude(nombre__in=nombres_estaticos)
+    try:
+        # Productos estáticos predefinidos
+        productos_estaticos = [
+            {
+                'id': 1,
+                'nombre': 'HV-COA 7100',
+                'descripcion': 'Analizador de Coagulación Veterinaria',
+                'imagen': 'producto1.png',
+                'caracteristicas': [
+                    'Rápido y Preciso',
+                    'Resultados en minutos'
+                ]
+            },
+             {
+                'id': 2,
+                'nombre': 'HV-FIA 3000',
+                'descripcion': 'Analizador de Inmunofluorescencia Cuantitativo',
+                'imagen': 'producto2.jpg',
+                'caracteristicas': [
+                    'T4, TSH, Cortisol, Hormonas',
+                    'Resultados en 3-15 minutos',
+                    'Almacena 1000 resultados'
+                ]
+            },
+            {
+                'id': 3,
+                'nombre': 'Pointcare® PCR V1',
+                'descripcion': 'Analizador PCR en tiempo real',
+                'imagen': 'producto3.png',
+                'caracteristicas': [
+                    'Extracción libre de DNA/RNA',
+                    'Resultados en 60 minutos',
+                    '6 wells de procesamiento'
+                ]
+            },
+            {
+                'id': 4,
+                'nombre': 'Test Rápidos',
+                'descripcion': 'Diagnóstico Veterinario',
+                'imagen': 'producto4.png',
+                'caracteristicas': [
+                    'CPV/CDV/FPV/FIV/otras pruebas',
+                    'Resultados en 5-10 minutos',
+                    'Alta sensibilidad y especificidad'
+                ]
+            },
+            {
+                'id': 5,
+                'nombre': 'Pointcare V3',
+                'descripcion': 'Analizador de Química Clínica y Electrolitos',
+                'imagen': 'producto5.jpeg',
+                'caracteristicas': [
+                    'Perfil Hepático y Renal',
+                    'Resultados en 7 minutos',
+                    'Pantalla táctil 4.3"'
+                ]
+            }
+        ]
+        
+            # ... resto de tus productos estáticos ...
+        
+        
+        nombres_estaticos = ['HV-COA 7100', 'HV-FIA 3000', 'Pointcare® PCR V1', 'Test Rápidos', 'Pointcare V3']
+        productos_dinamicos = Producto.objects.exclude(nombre__in=nombres_estaticos)
+        
+        # Obtener lista de deseos del usuario
+        productos_en_deseos = []
+        if request.user.is_authenticated:
+            productos_en_deseos = ListaDeseos.objects.filter(
+                user=request.user
+            ).values_list('producto_id', flat=True)
 
-    context = {
-        'productos_estaticos': productos_estaticos,  # Solo para mostrar los productos estáticos como antes
-        'productos_dinamicos': productos_dinamicos   # Solo productos nuevos agregados desde el admin
-    }
-    
-    return render(request, 'vetweb/productos.html', context)
+        context = {
+            'productos_estaticos': productos_estaticos,
+            'productos_dinamicos': productos_dinamicos,
+            'productos_en_deseos': list(productos_en_deseos),  # Convertir a lista
+        }
+        
+        return render(request, 'vetweb/productos.html', context)
+    except Exception as e:
+        print(f"Error en lista_productos: {e}")
+        return render(request, 'vetweb/productos.html', {'error': 'Ha ocurrido un error'})
    
 def quienes_somos(request):
     return render(request, 'vetweb/quienes_somos.html') 
@@ -128,12 +152,16 @@ def contacto(request):
             )
             
             messages.success(request, 'Mensaje enviado exitosamente')
-            return redirect('vetweb:contacto')
+            return HttpResponseRedirect(reverse('vetweb:contacto') + '#')  # Agregamos # al final
             
         except Exception as e:
             messages.error(request, 'Error al enviar el mensaje. Por favor, intenta nuevamente.')
     
     return render(request, 'vetweb/contacto.html')
+
+
+def policies_view(request):
+    return render(request, 'vetweb/policies.html')
 
 def login_admin(request):
     if request.method == 'POST':
@@ -221,7 +249,7 @@ def detalle_producto(request, producto_id):
     }
     
     return render(request, 'vetweb/detalle_producto.html', context)
-    
+  
 @admin_required
 def admin_dashboard(request):
     total_productos = Producto.objects.count()
@@ -242,11 +270,13 @@ def download_pdf(request, producto_id):
     if not producto.pdf:
         raise Http404("PDF no disponible")
     
-    return FileResponse(
+    response = FileResponse(
         producto.pdf.open(),
-        as_attachment=True,  # Fuerza la descarga
-        filename=producto.pdf.name.split('/')[-1]  # Nombre amigable
+        filename=producto.pdf.name.split('/')[-1]
     )
+    # Forzar el modo "inline" para visualización
+    response['Content-Disposition'] = f'inline; filename="{producto.pdf.name.split("/")[-1]}"'
+    return response
 
 # ========= CORRECCIONES CRUD =========
 @admin_required
@@ -350,28 +380,35 @@ def historial_compras(request):
     ordenes = Orden.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'vetweb/cliente/historial.html', {'ordenes': ordenes})
 
+
 @login_required
 def agregar_a_deseos(request, producto_id):
+    print(f"DEBUG: Intento de agregar/quitar producto {producto_id}")
+    
     if request.method == 'POST':
-        producto = get_object_or_404(Producto, id=producto_id)
-        deseo, created = ListaDeseos.objects.get_or_create(
-            user=request.user,
-            producto=producto
-        )
-        if created:
-            messages.success(request, 'Producto agregado a tu lista de deseos')
-        else:
-            messages.info(request, 'Este producto ya está en tu lista de deseos')
-        
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse({
-                'status': 'success',
-                'message': 'Producto agregado exitosamente' if created else 'Producto ya existe en la lista'
-            })
+        try:
+            producto = get_object_or_404(Producto, id=producto_id)
+            deseo_existente = ListaDeseos.objects.filter(user=request.user, producto=producto).first()
             
-        return redirect('vetweb:productos')
-    return redirect('vetweb:productos')
-
+            if deseo_existente:
+                print(f"DEBUG: Eliminando producto {producto_id} de lista de deseos")
+                deseo_existente.delete()
+                in_wishlist = False
+            else:
+                print(f"DEBUG: Agregando producto {producto_id} a lista de deseos")
+                ListaDeseos.objects.create(user=request.user, producto=producto)
+                in_wishlist = True
+            
+            return JsonResponse({
+                'success': True,
+                'in_wishlist': in_wishlist
+            })
+        except Exception as e:
+            print(f"DEBUG ERROR: {str(e)}")
+            return JsonResponse({'success': False}, status=400)
+    
+    return JsonResponse({'success': False}, status=405)
+    
 @login_required
 def lista_deseos_view(request):
     deseos = ListaDeseos.objects.filter(user=request.user)
@@ -387,6 +424,13 @@ def quitar_de_deseos(request, producto_id):
             producto_id=producto_id
         ).delete()
         messages.success(request, 'Producto eliminado de tu lista de deseos')
+        
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': True,
+                'message': 'Producto eliminado de tu lista de deseos'
+            })
+        
         return redirect('vetweb:lista_deseos_view')
     return redirect('vetweb:lista_deseos_view')
 

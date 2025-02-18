@@ -4,231 +4,156 @@
 {% block title %}Equipos y Productos - Laboratorio Veterinario{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="hero-slider product-page">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="{% static 'vetweb/img/produ.jpg' %}" class="d-block w-100" alt="FleboVet">
-            <div class="carousel-caption">
-                <div class="container">
-                    <div class="caption-content text-start">
-                        <h1>Equipos y Productos</h1>
-                        <p>Innovación y calidad en diagnóstico veterinario</p>
+<div class="page-content">
+    <!-- Hero Section -->
+    <div class="hero-slider product-page">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'vetweb/img/12.jpg' %}" class="d-block w-100" alt="FleboVet">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="caption-content text-start">
+                            <h1>Equipos y Productos</h1>
+                            <p>Innovación y calidad en diagnóstico veterinario</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container py-5">
-    <div class="row g-4 justify-content-center">
-        <!-- Productos Estáticos Mejorados -->
-        <div class="col-md-4 mb-4">
-            <div class="form-product">
-                <div class="product-img-container">
-                    <img src="{% static 'vetweb/img/producto1.png' %}" alt="Analizador" class="product-img">
-                </div>
-                <div class="product-content">
-                    <h2>HV-COA 7100</h2>
-                    <p>Analizador de Coagulación Veterinaria</p>
-                    <div class="features">
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Rápido y Preciso</span>
+    <div class="products-page-wrapper">
+        <div class="container py-5">
+            <div class="row g-4 justify-content-center">
+                <!-- Productos Estáticos -->
+                {% for producto in productos_estaticos %}
+                <div class="col-md-4 mb-4">
+                    <div class="form-product">
+                        <div class="product-img-container">
+                            <img src="{% static 'vetweb/img/'|add:producto.imagen %}" alt="{{ producto.nombre }}" class="product-img">
                         </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Resultados en minutos</span>
+                        <div class="product-content">
+                            <h2>{{ producto.nombre }}</h2>
+                            <p>{{ producto.descripcion }}</p>
+                            <div class="features">
+                                {% for caracteristica in producto.caracteristicas %}
+                                <div class="feature-item">
+                                    <span class="check">✓</span>
+                                    <span>{{ caracteristica }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="actions-container">
+                                {% if user.is_authenticated %}
+                                <form method="post" action="{% url 'vetweb:agregar_a_deseos' producto.id %}" class="wishlist-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-wishlist">
+                                        <i class="{% if producto.id in productos_en_deseos %}fas{% else %}far{% endif %} fa-heart"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                                <a href="{% url 'vetweb:detalle_producto' producto.id %}" class="btn-ver">Ver Detalles</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="actions-container">
-                        <button class="btn-wishlist" disabled>
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <a href="{% url 'vetweb:detalle_producto' 1 %}" class="btn-ver">Ver Detalles</a>
+                </div>
+                {% endfor %}
+
+                <!-- Productos Dinámicos -->
+                {% for producto in productos_dinamicos %}
+                <div class="col-md-4 mb-4">
+                    <div class="form-product">
+                        <div class="product-img-container">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="product-img">
+                            {% else %}
+                                <img src="{% static 'vetweb/img/default-product.png' %}" alt="Imagen predeterminada" class="product-img">
+                            {% endif %}
+                        </div>
+                        <div class="product-content">
+                            <h2>{{ producto.nombre }}</h2>
+                            <p>{{ producto.descripcion }}</p>
+                            <div class="features">
+                                <div class="feature-item">
+                                    <span class="check">✓</span>
+                                    <span>Stock: {{ producto.stock }}</span>
+                                </div>
+                                {% if producto.pdf %}
+                                <div class="feature-item">
+                                    <span class="check">✓</span>
+                                    <span>Manual disponible</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="actions-container">
+                                {% if user.is_authenticated %}
+                                <form method="post" action="{% url 'vetweb:agregar_a_deseos' producto.id %}" class="wishlist-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </form>
+
+ 
+                                {% endif %}
+                                <a href="{% url 'vetweb:detalle_producto' producto.id %}" class="btn-ver">Ver Detalles</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="form-product">
-                <div class="product-img-container">
-                    <img src="{% static 'vetweb/img/producto2.jpg' %}" alt="HV-FIA 3000" class="product-img">
-                </div>
-                <div class="product-content">
-                    <h2>HV-FIA 3000</h2>
-                    <p>Analizador de Inmunofluorescencia Cuantitativo</p>
-                    <div class="features">
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>T4, TSH, Cortisol, Hormonas</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Resultados en 3-15 minutos</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Almacena 1000 resultados</span>
-                        </div>
-                    </div>
-                    <div class="actions-container">
-                        <button class="btn-wishlist" disabled>
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <a href="{% url 'vetweb:detalle_producto' 2 %}" class="btn-ver">Ver Detalles</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="form-product">
-                <div class="product-img-container">
-                    <img src="{% static 'vetweb/img/producto3.png' %}" alt="Pointcare PCR V1" class="product-img">
-                </div>
-                <div class="product-content">
-                    <h2>Pointcare® PCR V1</h2>
-                    <p>Analizador PCR en tiempo real</p>
-                    <div class="features">
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Extracción libre de DNA/RNA</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Resultados en 60 minutos</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>6 wells de procesamiento</span>
-                        </div>
-                    </div>
-                    <div class="actions-container">
-                        <button class="btn-wishlist" disabled>
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <a href="{% url 'vetweb:detalle_producto' 3 %}" class="btn-ver">Ver Detalles</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="form-product">
-                <div class="product-img-container">
-                    <img src="{% static 'vetweb/img/producto4.png' %}" alt="Test Rápidos" class="product-img">
-                </div>
-                <div class="product-content">
-                    <h2>Test Rápidos</h2>
-                    <p>Diagnóstico Veterinario</p>
-                    <div class="features">
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>CPV/CDV/FPV/FIV/otras pruebas</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Resultados en 5-10 minutos</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Alta sensibilidad y especificidad</span>
-                        </div>
-                    </div>
-                    <div class="actions-container">
-                        <button class="btn-wishlist" disabled>
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <a href="{% url 'vetweb:detalle_producto' 4 %}" class="btn-ver">Ver Detalles</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="form-product">
-                <div class="product-img-container">
-                    <img src="{% static 'vetweb/img/producto5.jpeg' %}" alt="Pointcare V3" class="product-img">
-                </div>
-                <div class="product-content">
-                    <h2>Pointcare V3</h2>
-                    <p>Analizador de Química Clínica y Electrolitos</p>
-                    <div class="features">
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Perfil Hepático y Renal</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Resultados en 7 minutos</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Pantalla táctil 4.3"</span>
-                        </div>
-                    </div>
-                    <div class="actions-container">
-                        <button class="btn-wishlist" disabled>
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <a href="{% url 'vetweb:detalle_producto' 5 %}" class="btn-ver">Ver Detalles</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Productos Dinámicos Integrados -->
-        {% for producto in productos_dinamicos %}
-        <div class="col-md-4 mb-4">
-            <div class="form-product">
-                <div class="product-img-container">
-                    {% if producto.imagen %}
-                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="product-img">
-                    {% else %}
-                        <img src="{% static 'vetweb/img/default-product.png' %}" alt="Imagen predeterminada" class="product-img">
-                    {% endif %}
-                </div>
-                <div class="product-content">
-                    <h2>{{ producto.nombre }}</h2>
-                    <p>{{ producto.descripcion }}</p>
-                    <div class="features">
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Stock: {{ producto.stock }}</span>
-                        </div>
-                        {% if producto.pdf %}
-                        <div class="feature-item">
-                            <span class="check">✓</span>
-                            <span>Manual disponible</span>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="actions-container">
-                        {% if user.is_authenticated %}
-                        <form method="post" action="{% url 'vetweb:agregar_a_deseos' producto.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-wishlist">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </form>
-                        {% endif %}
-                        <a href="{% url 'vetweb:detalle_producto' producto.id %}" class="btn-ver">Ver Detalles</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
     </div>
 </div>
-
 
 <style>
-/* Contenedor del producto */
+.page-content {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 89px);
+    margin-top: -89px; /* Nuevo */
+    padding-top: 89px; /* Nuevo */
+
+}
+
+.hero-slider.product-page {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    padding-top: 89px;
+}
+
+.hero-slider.product-page .carousel-item {
+    height: 500px;
+}
+
+.hero-slider.product-page .carousel-caption {
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.hero-slider.product-page img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.products-page-wrapper {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+.container.py-5 {
+    padding-bottom: 0 !important;
+}
+
 .form-product {
-    background: rgba(255, 255, 255, 0.9);
+    position: relative;
+    z-index: 3;
+    background: #fff;
     padding: 30px;
     border-radius: 8px;
     border: 1px solid rgba(17, 127, 239, 0.3);
@@ -236,6 +161,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px !important;
 }
 
 .form-product:hover {
@@ -243,7 +169,6 @@
     box-shadow: 0 0 0 2px rgba(17, 127, 239, 0.1);
 }
 
-/* Contenedor de imagen */
 .product-img-container {
     width: 100%;
     height: 200px;
@@ -256,7 +181,6 @@
     border-radius: 4px;
 }
 
-/* Imagen del producto */
 .product-img {
     width: 100%;
     height: 100%;
@@ -265,14 +189,12 @@
     max-height: 100%;
 }
 
-/* Contenido del producto */
 .product-content {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* Título */
 .form-product h2 {
     color: #117fef;
     font-size: 22px;
@@ -280,14 +202,12 @@
     font-weight: 500;
 }
 
-/* Descripción */
 .form-product p {
     color: #666;
     font-size: 15px;
     margin-bottom: 20px;
 }
 
-/* Features */
 .features {
     flex: 1;
     margin-bottom: 20px;
@@ -306,15 +226,17 @@
     margin-right: 10px;
 }
 
-/* Contenedor de acciones */
 .actions-container {
+    position: relative;
+    z-index: 4;
     display: flex;
     gap: 10px;
     margin-top: auto;
 }
 
-/* Botón wishlist */
 .btn-wishlist {
+    position: relative;
+    z-index: 5;
     background: transparent;
     border: 1px solid rgba(17, 127, 239, 0.3);
     color: rgba(17, 127, 239, 0.8);
@@ -339,8 +261,9 @@
     font-size: 18px;
 }
 
-/* Botón ver detalles */
 .btn-ver {
+    position: relative;
+    z-index: 5;
     flex: 1;
     padding: 12px;
     background: transparent;
@@ -360,25 +283,49 @@
     text-decoration: none;
 }
 
-/* Hero Section */
-.hero-slider.product-page {
-    height: 500px !important;
-    margin-top: 76px;
+.glass-register {
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(120deg, #f0f7ff, #e1eeff);
+    padding: 20px 0;
+    display: block !important;
+    margin: 50px 0 0 0 !important; /
 }
 
-.hero-slider.product-page .carousel-item {
-    height: 500px;
+.footer-modern {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 20px 0 !important; /* Añadido padding */
+    background: #fff;
+}
+.footer-modern .footer-copyright {
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    background: #fff;
 }
 
-.hero-slider.product-page .carousel-caption {
-    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
+    .products-page-wrapper {
+        min-height: auto;
+        margin-top: 0;
+    }
+    
+    .hero-slider.product-page {
+        margin-top: 0;
+        height: 400px !important;
+    }
+
+    .hero-slider.product-page .carousel-item {
+        height: 400px;
+    }
+    
     .form-product {
         padding: 20px;
     }
+
     
     .product-img-container {
         height: 180px;
@@ -387,6 +334,53 @@
     .form-product h2 {
         font-size: 20px;
     }
+@media (max-width: 768px) {
+        .page-content {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+    }
+
+    main {
+        display: grid;
+        grid-template-rows: auto 1fr auto auto;
+        min-height: 100vh;
+    }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.wishlist-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const heartIcon = form.querySelector('i.fa-heart');
+            const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+            
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,  // Asegurar que el token está presente
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'include',  
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Error en la respuesta');
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    heartIcon.classList.toggle('far');
+                    heartIcon.classList.toggle('fas');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>
 {% endblock %}
