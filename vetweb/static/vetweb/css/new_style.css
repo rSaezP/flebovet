@@ -361,16 +361,23 @@ header {
     }
 }
 /* Ajustes específicos para las páginas de contacto y quienes somos */
-.hero-slider.contact-page,
-.hero-slider.about-page {
+.hero-slider.contact-page {
     position: relative;
-    margin-top: 89px !important;
-    height: 600px !important;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: -89px !important;
+    height: 700px !important;
     width: 100%;
     overflow: hidden;
-    z-index: 1;
+}
 
-    
+.hero-slider.about-page {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: -89px !important;
 }
 
 
@@ -396,7 +403,7 @@ header {
 }
 
 .hero-slider.about-page .carousel-item {
-    height: 100%;
+    height: 700%;
 }
 .hero-slider.contact-page .carousel-caption {
     background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%);
@@ -439,6 +446,8 @@ header {
     object-fit: cover !important;
     object-position: center !important;
     display: block !important;
+    margin: 0;
+    padding: 0;
 }
 /* Nuevos estilos para el contenido de about page */
 .hero-slider.about-page .caption-content {

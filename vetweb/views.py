@@ -151,7 +151,7 @@ def contacto(request):
                 fail_silently=False,
             )
             
-            messages.success(request, 'Mensaje enviado exitosamente')
+            messages.success(request, '¡Gracias por contactarnos! Hemos recibido tu mensaje. Nuestro equipo se pondrá en contacto contigo lo antes posible.')
             return HttpResponseRedirect(reverse('vetweb:contacto') + '#')  # Agregamos # al final
             
         except Exception as e:

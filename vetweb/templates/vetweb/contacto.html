@@ -38,21 +38,28 @@ window.onload = function() {
 
                     <!-- Mensajes de éxito/error -->
                     {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show mb-4">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show mb-4">
+                            <div class="d-flex align-items-center">
+                                {% if message.tags == 'success' %}
+                                    <i class="fas fa-check-circle me-2"></i>
+                                {% endif %}
+                                <div>
+                                    <strong>{{ message }}</strong>
+                                </div>
                             </div>
-                        {% endfor %}
-                        <script>
-                            // Auto-dismiss alerts after 3 seconds
-                            setTimeout(function() {
-                                document.querySelectorAll('.alert').forEach(function(alert) {
-                                    bootstrap.Alert.getOrCreateInstance(alert).close();
-                                });
-                            }, 1000);
-                        </script>
-                    {% endif %}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                    <script>
+                        // Auto-dismiss alerts after 5 seconds
+                        setTimeout(function() {
+                            document.querySelectorAll('.alert').forEach(function(alert) {
+                                bootstrap.Alert.getOrCreateInstance(alert).close();
+                            });
+                        }, 10000);  // Aumentado a 5 segundos para dar más tiempo de lectura
+                    </script>
+                {% endif %}
 
                     <form class="contact-form" method="post">
                         {% csrf_token %}
@@ -88,11 +95,13 @@ window.onload = function() {
 /* Estilos específicos para la página de contacto */
 .hero-slider.contact-page {
     position: relative;
-    margin-top: 89px !important;
-    height: 600px !important;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: -89px !important;
+    height: 700px !important;
     width: 100%;
     overflow: hidden;
-    z-index: 1;
 }
 
 .hero-slider.contact-page .carousel-inner {
@@ -109,6 +118,8 @@ window.onload = function() {
     object-fit: cover !important;
     object-position: center !important;
     display: block !important;
+    margin: 0;
+    padding: 0
 }
 
 .hero-slider.contact-page .carousel-caption {
@@ -162,6 +173,44 @@ window.onload = function() {
     top: 0;
     right: 0;
     padding: 1.25rem;
+}
+
+/* Estilos para los mensajes de alerta */
+.alert-success {
+    background: rgba(17, 127, 239, 0.1);
+    border: 1px solid rgba(17, 127, 239, 0.3);
+    color: #117fef;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(17, 127, 239, 0.1);
+    position: relative;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    padding: 0.5rem;
+    color: #117fef;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.alert-dismissible .btn-close:hover {
+    opacity: 1;
 }
 </style>
 {% endblock %}

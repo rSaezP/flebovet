@@ -85,13 +85,28 @@
 {% block extra_css %}
 <style>
 /* ========== ESTILOS GENERALES ========== */
+.hero-slider.about-page {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: -89px !important;
+    overflow: hidden;  /* Añadido para contener la imagen */
+}
+.hero-slider .carousel-item {
+    height: 700px;  /* Mismo alto que productos */
+}
+
 .hero-slider img {
-    height: 600px;
+    height: 700px;
     object-fit: cover;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .carousel-caption {
-    background: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
     border-radius: 15px;
     padding: 2rem !important;
 }
@@ -321,7 +336,11 @@
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     .hero-slider img {
-        height: 400px;
+        height: 500px;
+    }
+    
+    .hero-slider.about-page {
+        margin-top: 0 !important;
     }
 
     .about-intro,
@@ -353,76 +372,68 @@
     .centered-image {
         border-radius: 15px;
     }
+}
 
-    .outer-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
-    
-    .inner-container {
-        max-width: 900px;
-        margin: 0 auto;
-    }
-    
-    .collage-wrapper {
-        width: 100%;
-        background: white;
-        border-radius: 30px;
-        overflow: hidden;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        position: relative;
-    }
-    
-    .collage-wrapper:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-    
-    .collage-image {
-        width: 100%;
-        height: auto;
-        display: block;
-        transition: all 0.3s ease;
-    }
-    
-    .collage-wrapper:hover .collage-image {
-        transform: scale(1.02);
-    }
-    
-    /* Efecto de brillo */
-    .collage-wrapper::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.2) 50%,
-            transparent 100%
-        );
-        transition: 0.5s;
-    }
-    
-    .collage-wrapper:hover::after {
-        left: 100%;
-    }
-    
-    @media (max-width: 768px) {
-        .final-image-section {
-            padding: 30px 15px;
-        }
-        
-        .collage-wrapper {
-            border-radius: 20px;
-        }
+.outer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.inner-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.collage-wrapper {
+    width: 100%;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.collage-wrapper:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.collage-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.collage-wrapper:hover .collage-image {
+    transform: scale(1.02);
+}
+
+/* Efecto de brillo */
+.collage-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    transition: 0.5s;
+}
+
+.collage-wrapper:hover::after {
+    left: 100%;
 }
 </style>
 {% endblock %}
+
 
 {% block extra_js %}
 <script>
