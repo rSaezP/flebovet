@@ -341,6 +341,49 @@
             grid-template-rows: auto 1fr auto auto;
             min-height: 100vh;
         }
+
+        .navbar-collapse {
+            display: block !important;
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            width: 100% !important;
+            background-color: white !important;
+            z-index: 10000 !important;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .navbar-nav {
+            display: block !important;
+            padding: 0.5rem 0 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .navbar-nav .nav-item {
+            display: block !important;
+            padding: 0.25rem 1rem !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .navbar-nav .nav-link {
+            display: block !important;
+            padding: 0.5rem 0 !important;
+            color: #1244C5!important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        /* Header fijo en la parte superior */
+        header {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            z-index: 10000 !important;
+            background-color: #fff !important;
+        }
     }
 </style>
 

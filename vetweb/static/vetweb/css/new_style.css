@@ -354,12 +354,7 @@ header {
     border: 1px solid rgba(17, 127, 239, 0.2);
 }
 
-@media (max-width: 768px) {
-    .about-final-text {
-        margin-left: 0;
-        margin-top: 20px;
-    }
-}
+
 /* Ajustes específicos para las páginas de contacto y quienes somos */
 .hero-slider.contact-page {
     position: relative;
