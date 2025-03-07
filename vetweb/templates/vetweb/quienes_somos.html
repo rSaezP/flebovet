@@ -18,6 +18,7 @@
     </div>
 </div>
 
+
 <!-- Sección Introducción -->
 <section class="about-intro py-5 scroll-effect">
     <div class="container">
@@ -120,6 +121,10 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+
+
+
 
 /* ========== KEYFRAMES DE ANIMACIONES ========== */
 @keyframes fadeInUp {
@@ -342,179 +347,7 @@
     background-position: center;
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-    /* Ajustes para el hero slider */
-    .hero-slider.about-page {
-        margin-top: 0 !important;
-        height: 350px !important;
-        position: relative !important;
-    }
-    
-    .hero-slider .carousel-item {
-        height: 350px !important;
-        position: relative !important;
-    }
-    
-    /* Configuración de imágenes */
-    .desktop-img {
-        display: none !important;
-    }
-    
-    .mobile-img {
-        display: block !important;
-    }
-    
-    .hero-slider .carousel-item img {
-        display: none !important;
-    }
-    
-    /* Imagen de fondo para móvil */
-    .hero-slider .carousel-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('/static/vetweb/img/201.jpg');
-        background-size: cover;
-        background-position: center;
-        z-index: 1;
-    }
-    
-    .carousel-caption {
-        position: relative;
-        z-index: 2;
-    }
-    
-    /* NAVBAR FIJO - PARTE CLAVE */
-    header {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        z-index: 9999 !important;
-        background-color: #fff !important;
-    }
-    
-    .navbar {
-        display: flex !important;
-        position: relative !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-        padding: 0.5rem 1rem !important;
-    }
-    
-    .navbar-brand {
-        display: block !important;
-        visibility: visible !important;
-    }
-    
-    .navbar-toggler {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        margin-right: 0 !important;
-    }
-    
-    .navbar-collapse {
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        width: 100% !important;
-        background-color: white !important;
-        z-index: 1000 !important;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
-    }
-    .navbar-collapse.show {
-        display: block !important;
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        width: 100% !important;
-        background-color: white !important;
-        z-index: 1000 !important;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
-    }
-    
-    .navbar-nav {
-        padding: 0.5rem 0 !important;
-        display: block !important;
-    }
-    
-    .navbar-nav .nav-item {
-        padding: 0.25rem 1rem !important;
-        display: block !important;
-    }
-    
-    .navbar-nav .nav-link {
-        padding: 0.5rem 0 !important;
-        color: #333 !important;
-        display: block !important;
-    }
-    
-    .navbar-nav .nav-link:hover {
-        color: #0056b3 !important;
-    }
-    
-    /* Ajuste de secciones para compensar navbar fijo */
-    .about-intro {
-        margin-top: 70px !important;
-        padding-top: 2rem !important;
-    }
-    
-    /* Otros estilos para las secciones */
-    .glass-card img {
-        height: 300px;
-    }
-    
-    .about-final-text {
-        margin-top: 1rem;
-        padding: 1.5rem;
-    }
-    
-    .about-card,
-    .mission-card,
-    .vision-card {
-        padding: 1.5rem;
-    }
-}
 
-    /* Estilos de máxima prioridad para el navbar móvil */
-    @media (max-width: 768px) {
-        .navbar {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            z-index: 9999 !important;
-            background-color: white !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
-        }
-
-        
-        .navbar * {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        .navbar-brand, 
-        .navbar-toggler {
-            display: inline-block !important;
-        }
-        
-        /* Añadir espacio en la parte superior del contenido */
-        body {
-            padding-top: 60px !important;
-        }
-        
-        /* Establecer estos estilos es crucial para sobreescribir cualquier otro */
-        .about-intro, 
-        section:first-of-type {
-            margin-top: 60px !important;
-        }
-    }
     
 
 
@@ -575,13 +408,188 @@
 .collage-wrapper:hover::after {
     left: 100%;
 }
-</style>
+
+
+
+@media (max-width: 768px) {
+    /* Ocultar completamente las imágenes del carrusel */
+  .carousel-item img.desktop-img {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    position: absolute !important;
+    opacity: 0 !important;
+    z-index: -999 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Eliminar también el fondo de la versión móvil */
+  .carousel-item .mobile-img {
+    background-image: none !important;
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+  
+  /* Ajustar el carrusel para que no ocupe espacio */
+  .carousel-inner, .carousel-item {
+    min-height: auto !important;
+    height: auto !important;
+  }
+  
+  /* Conservar solo el texto */
+  .carousel-caption {
+    position: static !important;
+    text-align: center !important;
+    padding: 15px !important;
+    margin-top: 60px !important; /* Para compensar la navbar fija */
+    color: #333 !important;
+    background-color: #f8f9fa !important;
+  }
+
+   
+
+
+    
+    /* NAVBAR FIJO - PARTE CLAVE */
+    header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 9999 !important;
+        background-color: #fff !important;
+    }
+
+    .navbar {
+        display: flex !important;
+        position: relative !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+        padding: 0.5rem 1rem !important;
+    }
+
+    .navbar-brand {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    .navbar-toggler {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        margin-right: 0 !important;
+    }
+
+    .navbar-collapse {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        background-color: white !important;
+        z-index: 1000 !important;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .navbar-collapse.show {
+        display: block !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        background-color: white !important;
+        z-index: 1000 !important;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .navbar-nav {
+        padding: 0.5rem 0 !important;
+        display: block !important;
+    }
+
+    .navbar-nav .nav-item {
+        padding: 0.25rem 1rem !important;
+        display: block !important;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0 !important;
+        color: #333 !important;
+        display: block !important;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #0056b3 !important;
+    }
+
+    /* Ajuste de secciones para compensar navbar fijo */
+    .about-intro {
+        margin-top: 70px !important;
+        padding-top: 2rem !important;
+    }
+
+    /* Otros estilos para las secciones */
+    .glass-card img {
+        height: 300px;
+    }
+
+    .about-final-text {
+        margin-top: 1rem;
+        padding: 1.5rem;
+    }
+
+    .about-card,
+    .mission-card,
+    .vision-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Estilos de máxima prioridad para el navbar móvil */
+@media (max-width: 768px) {
+    .navbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 9999 !important;
+        background-color: white !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
+    }
+
+    .navbar * {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .navbar-brand, 
+    .navbar-toggler {
+        display: inline-block !important;
+    }
+
+    /* Añadir espacio en la parte superior del contenido */
+    body {
+        padding-top: 60px !important;
+    }
+
+    /* Establecer estos estilos es crucial para sobreescribir cualquier otro */
+    .about-intro, 
+    section:first-of-type {
+        margin-top: 60px !important;
+    }
+}
 {% endblock %}
 
 
 {% block extra_js %}
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Observer para los efectos de scroll
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if(entry.isIntersecting) {
@@ -596,6 +604,47 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.scroll-effect').forEach(element => {
         observer.observe(element);
     });
+
+    // 2. Corrección para el título cortado en mobile
+    function ajustarTitulo() {
+        if (window.innerWidth <= 768) {
+            // Buscar el título específicamente
+            const titulos = document.querySelectorAll('.carousel-caption .caption-content h1');
+            titulos.forEach(function(titulo) {
+                if (titulo.textContent.includes('SOMOS') || titulo.textContent.includes('CONTÁCTA')) {
+                    console.log("Ajustando título:", titulo.textContent);
+                    
+                    // Ajustar el contenedor del caption
+                    const captionContent = titulo.closest('.caption-content');
+                    if (captionContent) {
+                        captionContent.style.position = 'relative';
+                        captionContent.style.top = '-50px';
+                        captionContent.style.textAlign = 'center';
+                        captionContent.style.width = '100%';
+                    }
+                    
+                    // Ajustar el título
+                    titulo.style.fontSize = '2.2rem';
+                    titulo.style.marginTop = '-30px';
+                    titulo.style.textAlign = 'center';
+                    titulo.style.width = '100%';
+                    titulo.style.display = 'block';
+                    
+                    // Ajustar el párrafo debajo del título
+                    const parrafo = captionContent.querySelector('p');
+                    if (parrafo) {
+                        parrafo.style.textAlign = 'center';
+                        parrafo.style.width = '100%';
+                    }
+                }
+            });
+        }
+    }
+    
+    // Ejecutar al cargar y al cambiar el tamaño
+    setTimeout(ajustarTitulo, 100); // Pequeño retraso para asegurar que el DOM esté listo
+    window.addEventListener('resize', ajustarTitulo);
 });
 </script>
+
 {% endblock %}

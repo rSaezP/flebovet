@@ -94,7 +94,7 @@
                                     </button>
                                 </form>
 
- 
+
                                 {% endif %}
                                 <a href="{% url 'vetweb:detalle_producto' producto.id %}" class="btn-ver">Ver Detalles</a>
                             </div>
@@ -115,7 +115,7 @@
         margin: 0;
         padding: 0;
     }
-    
+
     .hero-slider.product-page {
         position: relative;
         z-index: 1;
@@ -123,15 +123,15 @@
         padding: 0 !important;
         margin-top: -89px !important;
     }
-    
+
     .hero-slider.product-page .carousel-item {
         height: 700px;
     }
-    
+
     .hero-slider.product-page .carousel-caption {
         background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
     }
-    
+
     .hero-slider.product-page img {
         object-fit: cover;
         width: 100%;
@@ -139,7 +139,7 @@
         margin: 0;
         padding: 0;
     }
-    
+
     .products-page-wrapper {
         position: relative;
         z-index: 2;
@@ -147,11 +147,11 @@
         padding: 0;
         margin: 0;
     }
-    
+
     .container.py-5 {
         padding-bottom: 0 !important;
     }
-    
+
     .form-product {
         position: relative;
         z-index: 3;
@@ -165,12 +165,12 @@
         flex-direction: column;
         margin-bottom: 20px !important;
     }
-    
+
     .form-product:hover {
         border-color: rgba(17, 127, 239, 0.5);
         box-shadow: 0 0 0 2px rgba(17, 127, 239, 0.1);
     }
-    
+
     .product-img-container {
         width: 100%;
         height: 200px;
@@ -182,7 +182,7 @@
         padding: 15px;
         border-radius: 4px;
     }
-    
+
     .product-img {
         width: 100%;
         height: 100%;
@@ -190,31 +190,31 @@
         max-width: 100%;
         max-height: 100%;
     }
-    
+
     .product-content {
         flex: 1;
         display: flex;
         flex-direction: column;
     }
-    
+
     .form-product h2 {
         color: #117fef;
         font-size: 22px;
         margin-bottom: 8px;
         font-weight: 500;
     }
-    
+
     .form-product p {
         color: #666;
         font-size: 15px;
         margin-bottom: 20px;
     }
-    
+
     .features {
         flex: 1;
         margin-bottom: 20px;
     }
-    
+
     .feature-item {
         display: flex;
         align-items: center;
@@ -222,12 +222,12 @@
         color: #666;
         font-size: 14px;
     }
-    
+
     .check {
         color: #117fef;
         margin-right: 10px;
     }
-    
+
     .actions-container {
         position: relative;
         z-index: 4;
@@ -235,7 +235,7 @@
         gap: 10px;
         margin-top: auto;
     }
-    
+
     .btn-wishlist {
         position: relative;
         z-index: 5;
@@ -252,17 +252,17 @@
         cursor: pointer;
         padding: 0;
     }
-    
+
     .btn-wishlist:hover {
         background: rgba(17, 127, 239, 0.1);
         border-color: rgba(17, 127, 239, 0.5);
         color: rgba(17, 127, 239, 1);
     }
-    
+
     .btn-wishlist i {
         font-size: 18px;
     }
-    
+
     .btn-ver {
         position: relative;
         z-index: 5;
@@ -277,14 +277,14 @@
         border-radius: 6px;
         transition: all 0.3s ease;
     }
-    
+
     .btn-ver:hover {
         background: rgba(17, 127, 239, 0.1);
         border-color: rgba(17, 127, 239, 0.5);
         color: rgba(17, 127, 239, 1);
         text-decoration: none;
     }
-    
+
     .glass-register {
         position: relative;
         z-index: 3;
@@ -293,7 +293,7 @@
         display: block !important;
         margin: 50px 0 0 0 !important;
     }
-    
+
     .footer-modern {
         position: relative;
         z-index: 1;
@@ -301,7 +301,7 @@
         padding: 20px 0 !important;
         background: #fff;
     }
-    
+
     .footer-modern .footer-copyright {
         padding: 10px 0;
         margin: 0;
@@ -309,33 +309,33 @@
         text-align: center;
         background: #fff;
     }
-    
+
     @media (max-width: 768px) {
         .page-content {
             margin: 0;
             padding: 0;
         }
-        
+
         .hero-slider.product-page {
             margin-top: 0 !important;
         }
-    
+
         .hero-slider.product-page .carousel-item {
             height: 500px;
         }
-        
+
         .form-product {
             padding: 20px;
         }
-        
+
         .product-img-container {
             height: 180px;
         }
-        
+
         .form-product h2 {
             font-size: 20px;
         }
-    
+
         main {
             display: grid;
             grid-template-rows: auto 1fr auto auto;
@@ -343,30 +343,38 @@
         }
 
         .navbar-collapse {
-            display: block !important;
-            position: absolute !important;
-            top: 100% !important;
+            display: none !important;
+            position: fixed !important;
+            top: 60px !important; /* Ajusta según la altura de tu navbar */
             left: 0 !important;
             width: 100% !important;
             background-color: white !important;
             z-index: 10000 !important;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
         }
-        
+        .navbar-collapse.show {
+            display: block !important;
+        }
+        .products-page-wrapper {
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
         .navbar-nav {
             display: block !important;
             padding: 0.5rem 0 !important;
             visibility: visible !important;
             opacity: 1 !important;
         }
-        
+
         .navbar-nav .nav-item {
             display: block !important;
             padding: 0.25rem 1rem !important;
             visibility: visible !important;
             opacity: 1 !important;
         }
-        
+
         .navbar-nav .nav-link {
             display: block !important;
             padding: 0.5rem 0 !important;
@@ -374,36 +382,39 @@
             visibility: visible !important;
             opacity: 1 !important;
         }
-        
+
         /* Header fijo en la parte superior */
         header {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            z-index: 10000 !important;
-            background-color: #fff !important;
+             position: fixed !important;
+             top: 0 !important;
+             left: 0 !important;
+             width: 100% !important;
+             z-index: 10000 !important;
+             background-color: #fff !important;
+             height: auto !important;
+        }
+        body {
+            padding-top: 60px; /* Ajusta según la altura de tu header */
         }
     }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Código para wishlist forms
     document.querySelectorAll('.wishlist-form').forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const formData = new FormData(form);
             const heartIcon = form.querySelector('i.fa-heart');
             const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
-            
             fetch(form.action, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken,  // Asegurar que el token está presente
+                    'X-CSRFToken': csrfToken,
                     'X-Requested-With': 'XMLHttpRequest'
                 },
-                credentials: 'include',  
+                credentials: 'include',
             })
             .then(response => {
                 if (!response.ok) throw new Error('Error en la respuesta');
@@ -418,6 +429,31 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error:', error));
         });
     });
+
+    // Código para el menú hamburguesa
+    const menuButton = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    if (menuButton && navbarCollapse) {
+        menuButton.addEventListener('click', function() {
+            navbarCollapse.classList.toggle('show');
+        });
+
+        // Cierra el menú al hacer clic en un enlace
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navbarCollapse.classList.remove('show');
+            });
+        });
+
+        // Añadir esta parte crucial: cerrar menú al hacer scroll
+        window.addEventListener('scroll', function() {
+            if (navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            }
+        });
+    }
 });
 </script>
 {% endblock %}

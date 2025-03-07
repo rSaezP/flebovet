@@ -1,32 +1,22 @@
 import os
-import socket
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Detectar automáticamente si estamos en PythonAnywhere
-IN_PYTHONANYWHERE = 'pythonanywhere' in socket.gethostname()
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--=#xt1cb2_v^$wrt0mf#7j(r#u^gn$go=-9@h0x*c5)w892ngj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-DEBUG = not IN_PYTHONANYWHERE  # True en local, False en producción
-
-DEBUG = False
-
-ALLOWED_HOSTS = ['www.flebo.cl', 'flebo.cl', 'webapp-2478552.pythonanywhere.com', '127.0.0.1', 'localhost']
-
-
-
-
-
-
-ALLOWED_HOSTS = ['www.flebo.cl', 'flebo.cl', 'fleboadmin.pythonanywhere.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['www.flebo.cl', 'flebo.cl', 'webapp-2479977.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -69,39 +59,24 @@ WSGI_APPLICATION = 'veterinaria.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-if IN_PYTHONANYWHERE:
-    # Configuración de base de datos para PythonAnywhere
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'fleboadmin$fleboadmin',
-            'USER': 'fleboadmin',
-            'PASSWORD': 'Romi2297.',
-            'HOST': 'fleboadmin.mysql.pythonanywhere-services.com',
-            'PORT': '3306',
-            'OPTIONS': {
-                'charset': 'utf8mb4',
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'flebovet_db',
+        'USER': 'root',
+        'PASSWORD': 'root',  # Cambia esto a tu contraseña local de MySQL
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
         }
     }
-else:
-    # Configuración de base de datos para desarrollo local
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'flebovet_db',
-            'USER': 'root',
-            'PASSWORD': 'root',
-            'HOST': 'localhost',
-            'PORT': '3306',
-            'OPTIONS': {
-                'charset': 'utf8mb4',
-            }
-        }
-    }
+}
 
 # Password validation
+# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -118,9 +93,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
+# https://docs.djangoproject.com/en/4.1/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_TZ = True
 
 # Configuración de Email con Gmail
@@ -128,42 +108,33 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'contactoflebovet@gmail.com'
-EMAIL_HOST_PASSWORD = 'demd phld awxk divi'
-DEFAULT_FROM_EMAIL = 'contactoflebovet@gmail.com'
+EMAIL_HOST_USER = 'contactoflebovet@gmail.com'  # Tu correo
+EMAIL_HOST_PASSWORD = 'demd phld awxk divi'  # La contraseña de aplicación que acabas de generar
+DEFAULT_FROM_EMAIL = 'contactoflebovet@gmail.com'  # Tu correo
 
-# Configuración para mimetypes
-import mimetypes
-mimetypes.add_type("text/css", ".css", True)
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# Configuración de archivos estáticos y media según entorno
-if IN_PYTHONANYWHERE:
-    # Configuración para PythonAnywhere
-    STATIC_URL = '/static/'
-    STATIC_ROOT = '/home/fleboadmin/flebovet/staticfiles'
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
-    ]
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-else:
-    # Configuración para desarrollo local
-    STATIC_URL = '/static/'
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'vetweb', 'static')
-    ]
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ruta para archivos estáticos en producción
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Ruta para archivos estáticos en desarrollo
+]
 
-# Configuración adicional
+# Configuración de media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta para archivos multimedia
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CSRF y CORS configuración
+# Configuración de CSRF y CORS
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://localhost:8000',
-    'https://fleboadmin.pythonanywhere.com',
+    'https://webapp-2479977.pythonanywhere.com',
     'https://www.flebo.cl',
     'https://flebo.cl'
 ]
@@ -176,3 +147,13 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
+
+
+
+
+
+
+
+
+
+

@@ -132,7 +132,9 @@ def contacto(request):
             nombre = request.POST.get('nombre')
             email = request.POST.get('email')
             asunto = request.POST.get('asunto')
+            telefono = request.POST.get('telefono')  # Nuevo campo
             mensaje = request.POST.get('mensaje')
+           
             
             mensaje_completo = f"""
             Nuevo mensaje de contacto:
@@ -140,7 +142,9 @@ def contacto(request):
             Nombre: {nombre}
             Email: {email}
             Asunto: {asunto}
+            Teléfono: {telefono}
             Mensaje: {mensaje}
+            
             """
             
             send_mail(
